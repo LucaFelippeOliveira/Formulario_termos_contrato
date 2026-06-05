@@ -111,7 +111,7 @@ async function gerarPixESalvar() {
 
     // 3. AQUI VAI O ENVIO PARA O GOOGLE SHEETS
     const urlGoogleAppsScript =
-      "https://script.google.com/macros/s/AKfycbwyQnSx8UxUF7_vm7RSn2PMmsLr0MfXcrcqnx1gfJdEEZvzgrFNZ8XURJGkkp6gBmAqYA/exec";
+      "https://script.google.com/macros/s/AKfycbwHHSsOlxAufwtTXyDyDHFlyv53-JyC2riEXiC7tHTuIFwLDfYLD7l38svawiGpWRN-Ug/exec";
 
     await fetch(urlGoogleAppsScript, {
       method: "POST",
