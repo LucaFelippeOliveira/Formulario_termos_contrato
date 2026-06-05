@@ -1,7 +1,9 @@
 function mudarDocumento(arquivo, abaClicada) {
   document.getElementById("pdf-viewer").src = arquivo + "#navpanes=0&view=FitH";
+
   const abas = document.querySelectorAll(".aba");
   abas.forEach((aba) => aba.classList.remove("ativa"));
+
   abaClicada.classList.add("ativa");
 }
 
@@ -16,9 +18,12 @@ function assinar() {
   const aceiteServico = document.getElementById("aceite-servico").checked;
 
   if (!aceiteUso || !aceiteServico) {
-    alert("Para prosseguir, você precisa declarar que leu e concorda com ambos os termos marcando as duas caixinhas.");
+    alert(
+      "Para prosseguir, você precisa declarar que leu e concorda com ambos os termos marcando as duas caixinhas."
+    );
     return;
   }
+
   irParaPagamento();
 }
 
@@ -29,7 +34,8 @@ function copiarPix() {
   campoPix.select();
   campoPix.setSelectionRange(0, 99999);
 
-  navigator.clipboard.writeText(campoPix.value)
+  navigator.clipboard
+    .writeText(campoPix.value)
     .then(() => {
       botaoCopiar.innerText = "Copiado com sucesso!";
       botaoCopiar.style.backgroundColor = "#17a2b8";
@@ -64,10 +70,9 @@ document.getElementById("cpf").addEventListener("input", function (e) {
   e.target.value = value;
 });
 
-// FUNÇÃO PRINCIPAL QUE ENVIA PARA A PLANILHA
 async function gerarPixESalvar() {
   const cpfInput = document.getElementById("cpf");
-  const cpf = cpfInput.value.replace(/\D/g, ""); 
+  const cpf = cpfInput.value.replace(/\D/g, "");
   const btnGerar = document.querySelector("#conteudo-pix .btn-avancar");
 
   if (cpf.length !== 11) {
@@ -79,39 +84,45 @@ async function gerarPixESalvar() {
   btnGerar.disabled = true;
 
   try {
+    // 1. Tenta pegar o IP silenciosamente
     let ipUsuario = "IP não capturado";
     try {
       const resIp = await fetch("https://api.ipify.org?format=json");
       const dataIp = await resIp.json();
       ipUsuario = dataIp.ip;
     } catch (erroIp) {
-      console.log("Aviso: Falha ao capturar IP, mas o processo vai continuar.");
+      console.log("Aviso: Falha ao capturar IP. O processo continuará sem ele.");
     }
 
-    const dadosAssinatura = {
-      cpf: cpf,
-      ip: ipUsuario,
-      data_hora: new Date().toLocaleString("pt-BR"),
-      termos_aceitos: "Termos de Uso e Regras de Contrato",
-    };
+    // 2. Prepara os dados no formato de formulário clássico (URLSearchParams)
+    const formData = new URLSearchParams();
+    formData.append("cpf", cpf);
+    formData.append("ip", ipUsuario);
+    formData.append("data_hora", new Date().toLocaleString("pt-BR"));
+    formData.append("termos_aceitos", "Termos de Uso e Regras de Contrato");
 
-    // COLOQUE A URL QUE VOCÊ COPIOU DO GOOGLE AQUI DENTRO DAS ASPAS:
+    // --- ATENÇÃO: COLOQUE A SUA URL GERADA NO GOOGLE AQUI ABAIXO ---
     const urlGoogleAppsScript = "https://script.google.com/macros/s/AKfycbwHHSsOlxAufwtTXyDyDHFlyv53-JyC2riEXiC7tHTuIFwLDfYLD7l38svawiGpWRN-Ug/exec";
 
+    // 3. Dispara a requisição para o Google
     await fetch(urlGoogleAppsScript, {
       method: "POST",
       mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(dadosAssinatura),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData.toString(),
     });
 
+    // 4. Esconde a área de pagamento e mostra o PIX
     document.getElementById("area-pagamento").classList.add("hidden");
     document.getElementById("area-pix").classList.remove("hidden");
-    
+
   } catch (erro) {
-    alert("Houve um erro ao processar. Tente novamente.");
+    alert("Houve um erro ao processar a requisição. Tente novamente.");
     console.error(erro);
   } finally {
+    // Retorna o botão ao estado normal
     btnGerar.innerText = "Gerar chave PIX de pagamento e QR Code";
     btnGerar.disabled = false;
   }
