@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Termos de Serviço e Pagamento</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="passo1" class="tela">
+      <h2>Documentação e Assinatura</h2>
+      <p>
+        Por favor, leia os documentos abaixo e marque as caixinhas para
+        prosseguir.
+      </p>
+
+      <div class="documento-caixa">
+        <div class="abas">
+          <button
+            class="aba ativa"
+            onclick="mudarDocumento('termo_uso.pdf', this)"
+          >
+            1. Termos de Uso
+          </button>
+          <button
+            class="aba"
+            onclick="mudarDocumento('termo_servico.pdf', this)"
+          >
+            2. Regras de Contrato
+          </button>
+        </div>
+        <div class="iframe-container">
+          <iframe
+            id="pdf-viewer"
+            src="termo_uso.pdf#navpanes=0&view=FitH"
+            class="leitor-pdf"
+          ></iframe>
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" id="aceite-uso" />
+          <span class="texto-checkbox"
+            >Declaro que li, compreendi e estou de acordo com os
+            <strong>Termos de Uso, Condições Gerais e Responsabilidades</strong
+            >.</span
+          >
+        </label>
+        <label>
+          <input type="checkbox" id="aceite-servico" />
+          <span class="texto-checkbox"
+            >Declaro que li e concordo com o
+            <strong>Termo de Prestação de Serviço e Regras de Contrato</strong>
+            e <strong>LGPD</strong>.</span
+          >
+        </label>
+      </div>
+
+      <button onclick="assinar()" class="btn-avancar">
+        Assinar Documentos
+      </button>
+    </div>
+
+    <div id="passo2" class="tela hidden">
+        <h2>PAGAMENTO</h2>
+  
+        <div class="aviso">
+          <strong>Atenção:</strong> Confira os dados do destinatario antes do pagamento.
+        </div>
+  
+        <div id="area-pagamento" class="metodos-pagamento">
+          
+          <label class="metodo-opcao ativa" id="label-pix">
+            <div class="metodo-cabecalho">
+              <input type="radio" name="pagamento" value="pix" checked onchange="selecionarPagamento('pix')">
+              <span class="metodo-titulo">❖ PIX</span>
+            </div>
+            
+            <div id="conteudo-pix" class="metodo-conteudo">
+              <p>Para gerar sua cobrança via PIX, informe seu CPF abaixo:</p>
+              <div class="formulario">
+                <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14" />
+                <button onclick="gerarPixESalvar()" class="btn-avancar" style="margin-top: 15px;">
+                  Gerar chave PIX de pagamento e QR Code
+                </button>
+                <p style="font-size: 12px; margin-top: 10px; color: #888; text-align: left;">
+                  *Seu CPF será utilizado apenas para registro do aceite dos termos e emissão da nota, em conformidade com a LGPD.
+                </p>
+              </div>
+            </div>
+          </label>
+  
+          <label class="metodo-opcao desabilitada" id="label-cartao">
+            <div class="metodo-cabecalho">
+              <input type="radio" name="pagamento" value="cartao" disabled>
+              <span class="metodo-titulo">💳 Cartão de Crédito (Em breve)</span>
+            </div>
+            
+            <div id="conteudo-cartao" class="metodo-conteudo hidden">
+              <p>Em breve aceitaremos pagamentos via cartão de crédito.</p>
+            </div>
+          </label>
+  
+        </div>
+  
+        <div id="area-pix" class="pix-container hidden">
+          <p>Escaneie o QR Code abaixo:</p>
+          <img src="qrcode.png" alt="QR Code PIX" id="img-qr" />
+  
+          <div class="copia-cola-container">
+            <input
+              type="text"
+              id="chave-pix"
+              value="00020126580014br.gov.bcb.pix0136CHAVE-AQUI"
+              readonly
+            />
+            <button onclick="copiarPix()" id="btn-copiar" class="btn-avancar">
+              Copiar Chave Pix
+            </button>
+          </div>
+        </div>
+      </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

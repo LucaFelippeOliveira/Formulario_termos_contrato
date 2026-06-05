@@ -1,0 +1,292 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.tela {
+    background: #fff;
+    max-width: 800px; 
+    width: 100%;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.hidden {
+    display: none !important;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/* Estilo da caixa única e abas */
+.documento-caixa {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #ececec;
+    margin-bottom: 20px;
+}
+
+.abas {
+    display: flex;
+    background-color: #ddd;
+}
+
+.aba {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    background-color: #ddd;
+    cursor: pointer;
+    font-weight: bold;
+    color: #666;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.aba:hover {
+    background-color: #ccc;
+}
+
+.aba.ativa {
+    background-color: #ececec;
+    color: #2c3e50;
+    border-bottom: 3px solid #28a745;
+}
+
+
+.iframe-container {
+    width: 100%;
+    height: 50vh; 
+    min-height: 400px; 
+}
+
+.leitor-pdf {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    margin-bottom: 20px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.texto-checkbox {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: left;
+    color: #444;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+    accent-color: #28a745;
+}
+
+/* Formulário e Inputs (Retornado para o CPF) */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.formulario label {
+    font-weight: bold;
+    font-size: 14px;
+    text-align: left;
+}
+
+.formulario input[type="text"] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+}
+
+/* Botões */
+.btn-avancar {
+    background-color: #28a745;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    width: 100%;
+}
+
+.btn-avancar:hover {
+    background-color: #218838;
+}
+
+/* Tela de Pagamento */
+.aviso {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #ffeeba;
+}
+
+.pix-container {
+    text-align: center;
+}
+
+#img-qr {
+    max-width: 250px;
+    width: 100%;
+    margin: 15px auto;
+    display: block;
+}
+
+.copia-cola-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#chave-pix {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #e9ecef;
+}
+
+/* Ajustes mobile */
+@media (max-width: 600px) {
+    .tela {
+        padding: 20px;
+    }
+    
+    .aba {
+        font-size: 12px;
+        padding: 12px 5px;
+    }
+
+    .iframe-container {
+        height: 60vh; 
+    }
+
+    .btn-avancar {
+        font-size: 16px;
+        padding: 12px;
+    }
+}
+
+/* --- ESTILOS DO SELETOR DE PAGAMENTO (ACCORDION) --- */
+.metodos-pagamento {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.metodo-opcao {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 15px;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+/* Quando a opção está selecionada */
+.metodo-opcao.ativa {
+    border: 2px solid #28a745;
+    background-color: #f1fff4;
+}
+
+.metodo-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.metodo-cabecalho input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #28a745;
+}
+
+.metodo-titulo {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Conteúdo que expande */
+.metodo-conteudo {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+    display: none; /* Escondido por padrão */
+}
+
+/* Mostra o conteúdo apenas se a caixa for ativa */
+.metodo-opcao.ativa .metodo-conteudo {
+    display: block;
+}
+
+/* Estilo para opção inativa/em breve */
+.metodo-opcao.desabilitada {
+    opacity: 0.6;
+    cursor: not-allowed;
+    border-color: #ddd;
+}
+
+.metodo-opcao.desabilitada .metodo-cabecalho input {
+    cursor: not-allowed;
+}
