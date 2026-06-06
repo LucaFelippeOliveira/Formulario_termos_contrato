@@ -38,7 +38,6 @@ p {
     color: #666;
 }
 
-/* Estilo da caixa única e abas */
 .documento-caixa {
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -123,7 +122,6 @@ p {
     accent-color: #28a745;
 }
 
-/* Formulário e Inputs (Retornado para o CPF) */
 .formulario {
     display: flex;
     flex-direction: column;
@@ -146,7 +144,6 @@ p {
     width: 100%;
 }
 
-/* Botões */
 .btn-avancar {
     background-color: #28a745;
     color: white;
@@ -165,7 +162,6 @@ p {
     background-color: #218838;
 }
 
-/* Tela de Pagamento */
 .aviso {
     background-color: #fff3cd;
     color: #856404;
@@ -203,7 +199,6 @@ p {
     background-color: #e9ecef;
 }
 
-/* Ajustes mobile */
 @media (max-width: 600px) {
     .tela {
         padding: 20px;
@@ -224,7 +219,6 @@ p {
     }
 }
 
-/* --- ESTILOS DO SELETOR DE PAGAMENTO (ACCORDION) --- */
 .metodos-pagamento {
     display: flex;
     flex-direction: column;
@@ -242,7 +236,6 @@ p {
     display: block;
 }
 
-/* Quando a opção está selecionada */
 .metodo-opcao.ativa {
     border: 2px solid #28a745;
     background-color: #f1fff4;
@@ -267,20 +260,17 @@ p {
     color: #333;
 }
 
-/* Conteúdo que expande */
 .metodo-conteudo {
     margin-top: 15px;
     padding-top: 15px;
     border-top: 1px solid #e0e0e0;
-    display: none; /* Escondido por padrão */
+    display: none;
 }
 
-/* Mostra o conteúdo apenas se a caixa for ativa */
 .metodo-opcao.ativa .metodo-conteudo {
     display: block;
 }
 
-/* Estilo para opção inativa/em breve */
 .metodo-opcao.desabilitada {
     opacity: 0.6;
     cursor: not-allowed;
