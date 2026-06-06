@@ -84,7 +84,6 @@ async function gerarPixESalvar() {
   btnGerar.disabled = true;
 
   try {
-    // 1. Tenta pegar o IP silenciosamente
     let ipUsuario = "IP não capturado";
     try {
       const resIp = await fetch("https://api.ipify.org?format=json");
@@ -94,17 +93,14 @@ async function gerarPixESalvar() {
       console.log("Aviso: Falha ao capturar IP. O processo continuará sem ele.");
     }
 
-    // 2. Prepara os dados no formato de formulário clássico (URLSearchParams)
     const formData = new URLSearchParams();
     formData.append("cpf", cpf);
     formData.append("ip", ipUsuario);
     formData.append("data_hora", new Date().toLocaleString("pt-BR"));
     formData.append("termos_aceitos", "Termos de Uso e Regras de Contrato");
 
-    // --- ATENÇÃO: COLOQUE A SUA URL GERADA NO GOOGLE AQUI ABAIXO ---
     const urlGoogleAppsScript = "https://script.google.com/macros/s/AKfycbwHHSsOlxAufwtTXyDyDHFlyv53-JyC2riEXiC7tHTuIFwLDfYLD7l38svawiGpWRN-Ug/exec";
 
-    // 3. Dispara a requisição para o Google
     await fetch(urlGoogleAppsScript, {
       method: "POST",
       mode: "no-cors",
@@ -114,7 +110,6 @@ async function gerarPixESalvar() {
       body: formData.toString(),
     });
 
-    // 4. Esconde a área de pagamento e mostra o PIX
     document.getElementById("area-pagamento").classList.add("hidden");
     document.getElementById("area-pix").classList.remove("hidden");
 
@@ -122,7 +117,7 @@ async function gerarPixESalvar() {
     alert("Houve um erro ao processar a requisição. Tente novamente.");
     console.error(erro);
   } finally {
-    // Retorna o botão ao estado normal
+    
     btnGerar.innerText = "Gerar chave PIX de pagamento e QR Code";
     btnGerar.disabled = false;
   }
